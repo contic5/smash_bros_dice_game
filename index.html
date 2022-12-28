@@ -1,0 +1,99 @@
+<html>
+<head>
+<title>Smash Bros Dice Game</title>
+<link href="mystyle.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+<main>
+<div class="padding"></div>
+<div id="content">
+<h1>Smash Bros Dice Game</h1>
+<button onclick="startgame()">Reset Game</button>
+<h2>Roll the dice to get a random option</h2>
+<h2 id="matchwinner"></h2>
+<h2 id="results"></h2>
+<h3 id="extradetail"></h3>
+
+<div class="flex">
+<div id="p1div">
+<h2>Player 1</h2>
+<h2 id="p1character">#1/87 Mario</h2>
+<button onclick="p1roll()">Roll</button>
+</div>
+<div id="p2div">
+<h2>Player 2</h2>
+<h2 id="p2character">#1/87 Mario</h2>
+<button onclick="p2roll()">Roll</button>
+</div>
+</div>
+    
+</div>
+<div class="padding"></div>
+</main>
+<script src="options.js"></script>
+<script src="characters.js"></script>
+<script>
+function roll()
+{
+    value=Math.floor(Math.random()*20);
+    document.getElementById("results").innerHTML=(value+1)+": "+options[value];
+    document.getElementById("extradetail").innerHTML=extradetails[value];
+    
+    return value;
+}
+function p1roll()
+{
+    document.getElementById("matchwinner").innerHTML="Player 1 wins!";
+    if(p1loc>=characters.length)
+    {
+        document.getElementById("matchwinner").innerHTML="Player 1 is the champion!"; 
+    }
+    else
+    {
+        p1loc+=roll();
+        if(p1loc>=characters.length)
+        {
+            document.getElementById("p1character").innerHTML="Final Game: Random";
+        }
+        else
+        {
+            document.getElementById("p1character").innerHTML="#"+(p1loc+1)+"/"+characters.length+" "+characters[p1loc];
+        }
+    }
+}
+function p2roll()
+{
+    document.getElementById("matchwinner").innerHTML="Player 2 wins!";
+    if(p2loc>=characters.length)
+    {
+           document.getElementById("matchwinner").innerHTML="Player 2 is the champion!"; document.getElementById("p2character").innerHTML="Winner!";
+    }
+    else
+    {
+        p2loc+=roll();
+        if(p2loc>=characters.length)
+        {
+            document.getElementById("p2character").innerHTML="Final Game: Random";
+        }
+        else
+        {
+            document.getElementById("p2character").innerHTML="#"+(p2loc+1)+"/"+characters.length+" "+characters[p2loc];
+        }
+    }
+}
+function startgame()
+{
+    p1loc=0;
+    p2loc=0;
+    document.getElementById("results").innerHTML="";
+    document.getElementById("extradetail").innerHTML="";
+    document.getElementById("matchwinner").innerHTML="";
+    document.getElementById("p1character").innerHTML="#"+(p1loc+1)+"/"+characters.length+" "+characters[p1loc];
+    document.getElementById("p2character").innerHTML="#"+(p2loc+1)+"/"+characters.length+" "+characters[p2loc];
+    
+}
+p1loc=0;
+p2loc=0;
+</script>
+</body>
+</html>
